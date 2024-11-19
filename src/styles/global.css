@@ -165,7 +165,8 @@ button:disabled {
 /* Tablo Konteyneri */
 .table-container {
     overflow-x: auto;
-    margin-top: 1rem;
+    margin: 3rem 0;
+
 }
 
 /* Tablo Stili */

@@ -1,7 +1,7 @@
-# db-globe-challange
+# exchange-rate-api-dbglobe
 
 ## Overview
-**db-globe-challange** is a web application built using Vue.js 3, leveraging tools like PrimeVue for UI components, Chart.js for visualizations, Pinia for state management, and Axios for HTTP requests. The application is scaffolded using Vite, providing a fast development environment.
+**exchange-rate-api-dbglobe** is a web application built using Vue.js 3, leveraging tools like PrimeVue for UI components, Chart.js for visualizations, Pinia for state management, and Axios for HTTP requests. The application is scaffolded using Vite, providing a fast development environment.
 
 ## Features
 - **Vue.js 3**: Progressive JavaScript framework used to build user interfaces.
@@ -26,7 +26,7 @@ Ensure that you have the following software installed on your local machine:
    ```
 2. Navigate to the project directory:
    ```bash
-   cd db-globe-challange
+   cd exchange-rate-api-dbglobe
    ```
 3. Install dependencies using Yarn:
    ```bash

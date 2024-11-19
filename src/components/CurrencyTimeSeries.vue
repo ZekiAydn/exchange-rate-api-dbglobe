@@ -48,23 +48,22 @@
       <p v-if="store.error" class="error-message">{{ store.error }}</p>
 
       <div class="table-container">
-          <DataTable :value="store.timeSeriesData" responsiveLayout="scroll" class="currency-table">
-            <Column field="date" header="Date" />
-            <Column field="from" header="From Currency" />
-            <Column field="to" header="To Currency" />
-            <Column field="rate" header="Rate" />
-          </DataTable>
-
-        </div>
-      <Chart type="line" :data="chartData" :options="chartOptions" class="chart" />
+        <DataTable :value="store.timeSeriesData" responsiveLayout="scroll" class="currency-table">
+          <Column field="date" header="Date" />
+          <Column field="from" header="From Currency" />
+          <Column field="to" header="To Currency" />
+          <Column field="rate" header="Rate" />
+        </DataTable>
+      </div>
+      <Chart type="line" :data="chartData" class="chart" />
     </div>
   </div>
 </template>
 
 <script setup>
 import {ref, onMounted, watch} from 'vue';
-import {useCurrencyStore} from '@/stores/useCurrencyStore';
-import {DatePicker, Select, Button, DataTable, Column, MultiSelect, ProgressSpinner} from 'primevue';
+import { useCurrencyStore } from '@/stores/useCurrencyStore';
+import { DatePicker, Select, Button, DataTable, Column, MultiSelect, ProgressSpinner } from 'primevue';
 import Chart from 'primevue/chart';
 
 const store = useCurrencyStore();
@@ -75,7 +74,6 @@ const maxEndDate = ref(null);
 const fromCurrency = ref('TRY');
 const toCurrencies = ref([]);
 const chartData = ref(null);
-const chartOptions = ref({});
 const currencyOptions = ref([]);
 const isLoading = ref(false);
 
@@ -131,10 +129,7 @@ const handleFetch = async () => {
 
     if (store.timeSeriesData.length > 0) {
       chartData.value = {
-        labels: store.timeSeriesData.map(entry => {
-          const date = new Date(entry.date);
-          return new Intl.DateTimeFormat('en-US', { day: '2-digit', month: 'short' }).format(date);
-        }),
+        labels: store.timeSeriesData.map(entry => entry.date),
         datasets: toCurrencies.value.map(currency => ({
           label: currency,
           data: store.timeSeriesData
@@ -144,31 +139,6 @@ const handleFetch = async () => {
           fill: false,
           tension: 0.1,
         })),
-      };
-
-      chartOptions.value = {
-        responsive: true,
-        scales: {
-          y: {
-            type: 'logarithmic',
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Exchange Rate (Log Scale)',
-            },
-            ticks: {
-              callback: function (value) {
-                return Number(value.toString());
-              }
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Date',
-            }
-          }
-        }
       };
     }
   } catch (error) {
