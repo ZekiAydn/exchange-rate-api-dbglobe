@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-const API_KEY = 'wkcKkuoGRPJQhJ7gqurIya32Qxr80yrP';
+const API_KEY = '9TQIlwgCNGNDwOGgg0Wiqy0K1MHojAkQ';
 const BASE_URL = 'https://api.apilayer.com/exchangerates_data';
 
 export const useCurrencyStore = defineStore('currency', {
@@ -14,8 +14,14 @@ export const useCurrencyStore = defineStore('currency', {
     }),
 
     actions: {
-        // Döviz sembollerini yükleme
         async loadSymbols() {
+
+            const cachedSymbols = localStorage.getItem('currencySymbols');
+            if (cachedSymbols) {
+                this.symbols = JSON.parse(cachedSymbols);
+                return;
+            }
+
             try {
                 const response = await axios.get(`${BASE_URL}/symbols`, {
                     headers: { apikey: API_KEY }
@@ -23,6 +29,8 @@ export const useCurrencyStore = defineStore('currency', {
 
                 if (response.data.success) {
                     this.symbols = response.data.symbols;
+
+                    localStorage.setItem('currencySymbols', JSON.stringify(this.symbols));
                 } else {
                     this.error = 'Failed to load currency symbols.';
                 }
@@ -69,10 +77,9 @@ export const useCurrencyStore = defineStore('currency', {
             }
         },
 
-
         async fetchTimeSeries(startDate, endDate, base, symbols) {
             try {
-                this.timeSeriesData = []; // Önceki veriyi temizle
+                this.timeSeriesData = [];
                 this.error = null;
 
                 const formattedStartDate = startDate.toISOString().split('T')[0];

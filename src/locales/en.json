@@ -18,7 +18,7 @@
     "endDate": "End Date",
     "fromCurrency": "From Currency",
     "toCurrencies": "To Currencies",
-    "fetchButton": "Fetch Data",
+    "listButton": "List",
     "error": "Error",
     "errorFetch": "Failed to fetch data. Please try again.",
     "validation": {

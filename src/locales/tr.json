@@ -18,7 +18,7 @@
     "endDate": "Bitiş Tarihi",
     "fromCurrency": "Kaynak Para Birimi",
     "toCurrencies": "Hedef Para Birimleri",
-    "fetchButton": "Verileri Getir",
+    "listButton": "Listele",
     "error": "Hata",
     "errorFetch": "Veriler alınamadı. Lütfen tekrar deneyin.",
     "validation": {

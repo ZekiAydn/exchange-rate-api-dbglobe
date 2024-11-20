@@ -42,7 +42,7 @@
               class="multi-select"
           />
         </div>
-        <Button :label="$t('timeSeries.fetchButton')" @click="handleFetch" class="fetch-button" />
+        <Button :label="$t('timeSeries.listButton')" @click="handleFetch" class="fetch-button" />
       </div>
 
       <p v-if="store.error" class="error-message">{{ $t('timeSeries.error') }}: {{ store.error }}</p>
