@@ -12,7 +12,7 @@
           <InputNumber
               v-model="state.amount"
               mode="decimal"
-              min="1"
+              :min=1
               class="input-amount"
               :placeholder="$t('currency.enter_amount')"
           />
@@ -43,7 +43,7 @@
           />
         </div>
       </div>
-      <p v-if="conversionResult" class="conversion-info">
+      <p v-if="state.conversionResult" class="conversion-info">
         {{ state.amount }} {{ fromCurrencyName }} {{ $t('currency.equals') }} {{ state.conversionResult }} {{ toCurrencyName }}
       </p>
     </div>
@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect, computed, reactive } from "vue";
+import { onMounted, watchEffect, computed, reactive } from "vue";
 import {DatePicker, InputNumber, Select} from "primevue";
 import {useCurrencyStore} from "@/stores/useCurrencyStore";
 
@@ -72,6 +72,7 @@ const convertCurrency = async () => {
     state.conversionResult = store.conversionResult;
   } catch (error) {
     console.error("Conversion failed:", error);
+    state.conversionResult = null;
   }
 };
 
