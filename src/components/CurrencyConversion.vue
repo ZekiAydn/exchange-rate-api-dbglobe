@@ -51,9 +51,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from "vue";
-import { DatePicker, InputNumber, Select } from "primevue";
-import { useCurrencyStore } from "@/stores/useCurrencyStore";
+import {ref, onMounted, watchEffect, computed} from "vue";
+import {DatePicker, InputNumber, Select} from "primevue";
+import {useCurrencyStore} from "@/stores/useCurrencyStore";
 
 const store = useCurrencyStore();
 const selectedDate = ref(new Date());
@@ -62,7 +62,6 @@ const from = ref("TRY");
 const to = ref("USD");
 const conversionResult = ref(null);
 const currencyOptions = ref([]);
-
 
 const convertCurrency = async () => {
   if (!from.value || !to.value || !amount.value) return;
@@ -73,7 +72,6 @@ const convertCurrency = async () => {
     console.error("Conversion failed:", error);
   }
 };
-
 
 onMounted(async () => {
   try {
@@ -89,8 +87,7 @@ onMounted(async () => {
   }
 });
 
-
-watch([amount, from, to, selectedDate], async () => {
+watchEffect(async () => {
   if (!from.value || !to.value || !amount.value) return;
   try {
     await convertCurrency();
