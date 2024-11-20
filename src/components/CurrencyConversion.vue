@@ -1,51 +1,51 @@
 <template>
   <div class="currency-container">
     <div class="currency-in-container">
-    <h2 class="title">Currency Conversion</h2>
-    <div class="conversion-content">
-      <DatePicker
-          v-model="selectedDate"
-          dateFormat="dd.mm.yy"
-          class="datepicker"
-      />
-      <div class="input-group">
-        <InputNumber
-            v-model="amount"
-            mode="decimal"
-            min="1"
-            class="input-amount"
-            placeholder="Enter amount"
-            @change="convertCurrency"
+      <h2 class="title">{{ $t('currency.title') }}</h2>
+      <div class="conversion-content">
+        <DatePicker
+            v-model="selectedDate"
+            dateFormat="dd.mm.yy"
+            class="datepicker"
         />
-        <Select
-            :options="currencyOptions"
-            optionLabel="label"
-            optionValue="value"
-            v-model="from"
-            class="select-currency"
-            placeholder="From Currency"
-        />
+        <div class="input-group">
+          <InputNumber
+              v-model="amount"
+              mode="decimal"
+              min="1"
+              class="input-amount"
+              :placeholder="$t('currency.enter_amount')"
+              @change="convertCurrency"
+          />
+          <Select
+              :options="currencyOptions"
+              optionLabel="label"
+              optionValue="value"
+              v-model="from"
+              class="select-currency"
+              :placeholder="$t('currency.from_currency')"
+          />
+        </div>
+        <div class="input-group">
+          <InputNumber
+              v-model="conversionResult"
+              :readonly="true"
+              mode="decimal"
+              class="input-amount"
+              :placeholder="$t('currency.converted_amount')"
+          />
+          <Select
+              :options="currencyOptions"
+              optionLabel="label"
+              optionValue="value"
+              v-model="to"
+              class="select-currency"
+              :placeholder="$t('currency.to_currency')"
+          />
+        </div>
       </div>
-      <div class="input-group">
-        <InputNumber
-            v-model="conversionResult"
-            :readonly="true"
-            mode="decimal"
-            class="input-amount"
-            placeholder="Converted amount"
-        />
-        <Select
-            :options="currencyOptions"
-            optionLabel="label"
-            optionValue="value"
-            v-model="to"
-            class="select-currency"
-            placeholder="To Currency"
-        />
-      </div>
-    </div>
       <p v-if="conversionResult" class="conversion-info">
-        {{ amount }} {{ fromCurrencyName }} equals {{ conversionResult }} {{ toCurrencyName }}
+        {{ amount }} {{ fromCurrencyName }} {{ $t('currency.equals') }} {{ conversionResult }} {{ toCurrencyName }}
       </p>
     </div>
   </div>
@@ -53,8 +53,8 @@
 
 <script setup>
 import {ref, onMounted, watch, computed} from 'vue';
-import { DatePicker, InputNumber, Select } from "primevue";
-import { useCurrencyStore } from '@/stores/useCurrencyStore';
+import {DatePicker, InputNumber, Select} from "primevue";
+import {useCurrencyStore} from '@/stores/useCurrencyStore';
 
 const store = useCurrencyStore();
 const selectedDate = ref(new Date());
@@ -88,7 +88,8 @@ onMounted(async () => {
   }
 });
 
-watch([from, to, selectedDate,amount], convertCurrency);
+watch([from, to, selectedDate, amount], convertCurrency);
+
 const fromCurrencyName = computed(() => {
   return currencyOptions.value.find(option => option.value === from.value)?.label.split(' - ')[1] || '';
 });

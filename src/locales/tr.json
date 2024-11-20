@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "currency_conversion": "Döviz Dönüşümü",
+    "currency_time_series": "Döviz Zaman Serisi",
+    "conversion_history": "Dönüşüm Geçmişi"
+  },
+  "currency": {
+    "title": "Döviz Dönüşümü",
+    "enter_amount": "Miktar girin",
+    "from_currency": "Kaynak Para Birimi",
+    "to_currency": "Hedef Para Birimi",
+    "converted_amount": "Dönüştürülen miktar",
+    "equals": "eşittir"
+  },
+  "timeSeries": {
+    "title": "Döviz Zaman Serisi",
+    "startDate": "Başlangıç Tarihi",
+    "endDate": "Bitiş Tarihi",
+    "fromCurrency": "Kaynak Para Birimi",
+    "toCurrencies": "Hedef Para Birimleri",
+    "fetchButton": "Verileri Getir",
+    "error": "Hata",
+    "errorFetch": "Veriler alınamadı. Lütfen tekrar deneyin.",
+    "validation": {
+      "datesRequired": "Başlangıç Tarihi ve Bitiş Tarihi gereklidir.",
+      "dateRangeExceeded": "Tarih aralığı 1 ayı geçemez.",
+      "invalidStartDate": "Başlangıç Tarihi Bitiş Tarihinden sonra olamaz.",
+      "toCurrenciesRequired": "'Hedef Para Birimi' seçmeniz gerekiyor."
+    },
+    "table": {
+      "date": "Tarih",
+      "fromCurrency": "Kaynak Para Birimi",
+      "toCurrency": "Hedef Para Birimi",
+      "rate": "Kur"
+    }
+  },
+  "history": {
+    "title": "Döviz Dönüşüm Geçmişi",
+    "table": {
+      "timestamp": "Zaman Damgası",
+      "date": "Tarih",
+      "fromCurrency": "Kaynak Para Birimi",
+      "toCurrency": "Hedef Para Birimi",
+      "amount": "Miktar",
+      "rate": "Kur"
+    }
+  }
+}

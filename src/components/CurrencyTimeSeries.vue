@@ -4,21 +4,21 @@
       <ProgressSpinner />
     </div>
     <div v-else class="currency-in-container">
-      <h2 class="title">Currency Time Series</h2>
+      <h2 class="title">{{ $t('timeSeries.title') }}</h2>
 
       <div class="conversion-content">
         <div class="input-group">
           <DatePicker
               v-model="startDate"
               dateFormat="dd.mm.yy"
-              placeholder="Start Date"
+              :placeholder="$t('timeSeries.startDate')"
               :maxDate="today"
               class="datepicker"
           />
           <DatePicker
               v-model="endDate"
               dateFormat="dd.mm.yy"
-              placeholder="End Date"
+              :placeholder="$t('timeSeries.endDate')"
               :minDate="startDate"
               :maxDate="maxEndDate"
               class="datepicker"
@@ -30,7 +30,7 @@
               optionLabel="label"
               optionValue="value"
               v-model="fromCurrency"
-              placeholder="From Currency"
+              :placeholder="$t('timeSeries.fromCurrency')"
               class="select-currency"
           />
           <MultiSelect
@@ -38,21 +38,21 @@
               optionLabel="label"
               optionValue="value"
               v-model="toCurrencies"
-              placeholder="To Currencies"
+              :placeholder="$t('timeSeries.toCurrencies')"
               class="multi-select"
           />
         </div>
-        <Button label="Fetch Data" @click="handleFetch" class="fetch-button" />
+        <Button :label="$t('timeSeries.fetchButton')" @click="handleFetch" class="fetch-button" />
       </div>
 
-      <p v-if="store.error" class="error-message">{{ store.error }}</p>
+      <p v-if="store.error" class="error-message">{{ $t('timeSeries.error') }}: {{ store.error }}</p>
 
       <div class="table-container">
         <DataTable :value="store.timeSeriesData" responsiveLayout="scroll" class="currency-table">
-          <Column field="date" header="Date" />
-          <Column field="from" header="From Currency" />
-          <Column field="to" header="To Currency" />
-          <Column field="rate" header="Rate" />
+          <Column field="date" :header="$t('timeSeries.table.date')" />
+          <Column field="from" :header="$t('timeSeries.table.fromCurrency')" />
+          <Column field="to" :header="$t('timeSeries.table.toCurrency')" />
+          <Column field="rate" :header="$t('timeSeries.table.rate')" />
         </DataTable>
       </div>
       <Chart type="line" :data="chartData" class="chart" />
@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, watch} from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useCurrencyStore } from '@/stores/useCurrencyStore';
 import { DatePicker, Select, Button, DataTable, Column, MultiSelect, ProgressSpinner } from 'primevue';
 import Chart from 'primevue/chart';
@@ -81,18 +81,18 @@ const today = ref(new Date());
 
 const validateDates = () => {
   if (!startDate.value || !endDate.value) {
-    store.error = 'Start Date and End Date are required.';
+    store.error = $t('timeSeries.validation.datesRequired');
     return false;
   }
 
   const diffInDays = (endDate.value - startDate.value) / (1000 * 60 * 60 * 24);
   if (diffInDays > 30) {
-    store.error = 'The date range cannot exceed 1 month.';
+    store.error = $t('timeSeries.validation.dateRangeExceeded');
     return false;
   }
 
   if (startDate.value > endDate.value) {
-    store.error = 'Start Date cannot be later than End Date.';
+    store.error = $t('timeSeries.validation.invalidStartDate');
     return false;
   }
 
@@ -112,7 +112,7 @@ const handleFetch = async () => {
   if (!validateDates()) return;
 
   if (toCurrencies.value.length === 0) {
-    store.error = 'Please select at least one "To Currency".';
+    store.error = $t('timeSeries.validation.toCurrenciesRequired');
     return;
   }
 
@@ -142,7 +142,7 @@ const handleFetch = async () => {
       };
     }
   } catch (error) {
-    store.error = 'Failed to fetch data. Please try again.';
+    store.error = $t('timeSeries.errorFetch');
     console.error(error);
   } finally {
     isLoading.value = false;

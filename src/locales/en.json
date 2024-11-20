@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "currency_conversion": "Currency Conversion",
+    "currency_time_series": "Currency Time Series",
+    "conversion_history": "Conversion History"
+  },
+  "currency": {
+    "title": "Currency Conversion",
+    "enter_amount": "Enter amount",
+    "from_currency": "From Currency",
+    "to_currency": "To Currency",
+    "converted_amount": "Converted amount",
+    "equals": "equals"
+  },
+  "timeSeries": {
+    "title": "Currency Time Series",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "fromCurrency": "From Currency",
+    "toCurrencies": "To Currencies",
+    "fetchButton": "Fetch Data",
+    "error": "Error",
+    "errorFetch": "Failed to fetch data. Please try again.",
+    "validation": {
+      "datesRequired": "Start Date and End Date are required.",
+      "dateRangeExceeded": "The date range cannot exceed 1 month.",
+      "invalidStartDate": "Start Date cannot be later than End Date.",
+      "toCurrenciesRequired": "Please select at least one 'To Currency'."
+    },
+    "table": {
+      "date": "Date",
+      "fromCurrency": "From Currency",
+      "toCurrency": "To Currency",
+      "rate": "Rate"
+    }
+  },
+  "history": {
+    "title": "Currency Conversion History",
+    "table": {
+      "timestamp": "Timestamp",
+      "date": "Date",
+      "fromCurrency": "From Currency",
+      "toCurrency": "To Currency",
+      "amount": "Amount",
+      "rate": "Rate"
+    }
+  }
+}
