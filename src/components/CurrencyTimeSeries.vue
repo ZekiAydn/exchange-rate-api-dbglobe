@@ -8,41 +8,67 @@
 
       <div class="conversion-content">
         <div class="input-group">
-          <DatePicker
-              v-model="startDate"
-              dateFormat="dd.mm.yy"
-              :placeholder="$t('timeSeries.startDate')"
-              :maxDate="today"
-              class="datepicker"
-          />
-          <DatePicker
-              v-model="endDate"
-              dateFormat="dd.mm.yy"
-              :placeholder="$t('timeSeries.endDate')"
-              :minDate="startDate"
-              :maxDate="maxEndDate"
-              class="datepicker"
-          />
+          <div class="input-label-container">
+            <label>{{$t('timeSeries.startDate')}}</label>
+            <DatePicker
+                showIcon fluid iconDisplay="input"
+                v-model="startDate"
+                dateFormat="dd.mm.yy"
+                :placeholder="$t('timeSeries.startDate')"
+                :maxDate="today"
+                class="datepicker"
+            >
+              <template #inputicon="slotProps">
+                <i class="pi pi-calendar" @click="slotProps.clickCallback" />
+              </template>
+            </DatePicker>
+          </div>
+          <div class="input-label-container">
+            <label>{{$t('timeSeries.endDate')}}</label>
+            <DatePicker
+                showIcon fluid iconDisplay="input"
+                v-model="endDate"
+                dateFormat="dd.mm.yy"
+                :placeholder="$t('timeSeries.endDate')"
+                :minDate="startDate"
+                :maxDate="maxEndDate"
+                class="datepicker"
+            >
+              <template #inputicon="slotProps">
+                <i class="pi pi-calendar" @click="slotProps.clickCallback" />
+              </template>
+            </DatePicker>
+          </div>
         </div>
         <div class="input-group">
-          <Select
-              :options="currencyOptions"
-              optionLabel="label"
-              optionValue="value"
-              v-model="fromCurrency"
-              :placeholder="$t('timeSeries.fromCurrency')"
-              class="select-currency"
-          />
-          <MultiSelect
-              :options="currencyOptions"
-              optionLabel="label"
-              optionValue="value"
-              v-model="toCurrencies"
-              :placeholder="$t('timeSeries.toCurrencies')"
-              class="multi-select"
-          />
+          <div class="input-label-container">
+            <label>{{$t('timeSeries.fromCurrency')}}</label>
+            <Select
+                :options="currencyOptions"
+                optionLabel="label"
+                optionValue="value"
+                v-model="fromCurrency"
+                :placeholder="$t('timeSeries.fromCurrency')"
+                class="select-currency"
+            />
+          </div>
+          <div class="input-label-container">
+            <label>{{$t('timeSeries.toCurrencies')}}</label>
+            <MultiSelect
+                :options="currencyOptions"
+                optionLabel="label"
+                optionValue="value"
+                v-model="toCurrencies"
+                :placeholder="$t('timeSeries.toCurrencies')"
+                class="multi-select"
+            />
+          </div>
         </div>
-        <Button :label="$t('timeSeries.listButton')" @click="handleFetch" class="fetch-button" />
+        <div class="submit-container">
+        <button class="submit-button" @click="handleFetch">
+          {{ $t('timeSeries.listButton') }}
+        </button>
+        </div>
       </div>
 
       <p v-if="store.error" class="error-message">{{ $t('timeSeries.error') }}: {{ store.error }}</p>
@@ -55,7 +81,10 @@
           <Column field="rate" :header="$t('timeSeries.table.rate')" />
         </DataTable>
       </div>
-      <Chart type="line" :data="chartData" class="chart" />
+      <div class="chart-container">
+        <Chart type="line" :data="chartData" :options="chartOptions" class="chart" />
+      </div>
+
     </div>
   </div>
 </template>
@@ -63,8 +92,9 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useCurrencyStore } from '@/stores/useCurrencyStore';
-import { DatePicker, Select, Button, DataTable, Column, MultiSelect, ProgressSpinner } from 'primevue';
+import {DatePicker, Select, Button, DataTable, Column, MultiSelect, ProgressSpinner, InputNumber} from 'primevue';
 import Chart from 'primevue/chart';
+import {chartOptions} from "@/utils/chartOptions.js";
 
 const store = useCurrencyStore();
 const startDate = ref(new Date());
@@ -136,11 +166,13 @@ const handleFetch = async () => {
               .filter(entry => entry.to === currency)
               .map(entry => entry.rate),
           borderColor: getRandomColor(),
-          fill: false,
-          tension: 0.1,
+          backgroundColor: "rgba(138, 63, 127, 0.2)",
+          fill: true,
+          tension: 0.4,
         })),
       };
     }
+
   } catch (error) {
     store.error = $t('timeSeries.errorFetch');
     console.error(error);

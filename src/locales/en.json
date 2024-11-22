@@ -6,6 +6,8 @@
   },
   "currency": {
     "title": "Currency Conversion",
+    "date": "Select Date",
+    "submit_button": "Convert",
     "enter_amount": "Enter amount",
     "from_currency": "From Currency",
     "to_currency": "To Currency",
@@ -44,5 +46,9 @@
       "amount": "Amount",
       "rate": "Rate"
     }
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
   }
 }

@@ -6,6 +6,8 @@
   },
   "currency": {
     "title": "Döviz Dönüşümü",
+    "date": "Tarih Seçin",
+    "submit_button": "Hesapla",
     "enter_amount": "Miktar girin",
     "from_currency": "Kaynak Para Birimi",
     "to_currency": "Hedef Para Birimi",
@@ -44,5 +46,9 @@
       "amount": "Miktar",
       "rate": "Kur"
     }
+  },
+  "theme": {
+    "light": "Açık Mod",
+    "dark": "Koyu Mod"
   }
 }
