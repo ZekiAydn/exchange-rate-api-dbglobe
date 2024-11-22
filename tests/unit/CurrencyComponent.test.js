@@ -83,8 +83,7 @@ describe('CurrencyConversion.vue', () => {
     wrapper.vm.state.to = 'USD';
     await wrapper.vm.$nextTick();
 
-    await wrapper.vm.convertCurrency(); // convertCurrency'i manuel olarak çağırın
-
+    await wrapper.vm.convertCurrency(); 
     expect(mockStore.convert).toHaveBeenCalledWith('TRY', 'USD', 100, wrapper.vm.state.selectedDate);
     expect(wrapper.vm.state.conversionResult).toBe(mockStore.conversionResult);
   });
