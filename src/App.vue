@@ -7,14 +7,16 @@
           <span v-if="isDarkMode">🌙</span>
           <span v-else>🌞</span>
         </button>
-        <select
-            class="language-select border-none"
+
+        <Select
             v-model="selectedLanguage"
+            :options="languageOptions"
+            optionLabel="label"
+            optionValue="value"
+            class="language-select"
             @change="changeLanguage"
-        >
-          <option value="en">English</option>
-          <option value="tr">Türkçe</option>
-        </select>
+            placeholder="Select Language"
+        />
       </div>
     </nav>
     <router-view />
@@ -33,6 +35,10 @@ const route = useRoute();
 const activePath = ref(route.path);
 const selectedLanguage = ref(locale.value);
 
+const languageOptions = [
+  { label: "English", value: "en" },
+  { label: "Türkçe", value: "tr" },
+];
 const changeLanguage = () => {
   locale.value = selectedLanguage.value;
 };

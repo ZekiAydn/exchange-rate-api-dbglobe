@@ -103,6 +103,7 @@ const fromCurrency = ref('TRY');
 const toCurrencies = ref([]);
 const chartData = ref(null);
 const currencyOptions = ref([]);
+const uniqueDates = [...new Set(store.timeSeriesData.map(entry => entry.date))];
 const isLoading = ref(false);
 
 const today = ref(new Date());
@@ -156,21 +157,24 @@ const handleFetch = async () => {
     );
 
     if (store.timeSeriesData.length > 0) {
+      const uniqueDates = [...new Set(store.timeSeriesData.map(entry => entry.date))];
+
       chartData.value = {
-        labels: store.timeSeriesData.map(entry => entry.date),
+        labels: uniqueDates,
         datasets: toCurrencies.value.map(currency => ({
           label: currency,
-          data: store.timeSeriesData
-              .filter(entry => entry.to === currency)
-              .map(entry => entry.rate),
+          data: uniqueDates.map(date => {
+            const entry = store.timeSeriesData.find(
+                data => data.to === currency && data.date === date
+            );
+            return entry ? entry.rate : 0;
+          }),
           borderColor: getRandomColor(),
-          backgroundColor: "rgba(138, 63, 127, 0.2)",
           fill: true,
-          tension: 0.4,
+          tension: 0.6,
         })),
       };
     }
-
   } catch (error) {
     store.error = $t('timeSeries.errorFetch');
     console.error(error);
@@ -178,6 +182,7 @@ const handleFetch = async () => {
     isLoading.value = false;
   }
 };
+
 
 onMounted(async () => {
   await store.loadSymbols();
