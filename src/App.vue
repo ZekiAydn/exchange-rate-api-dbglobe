@@ -54,6 +54,9 @@ const toggleTheme = () => {
 };
 
 onMounted(() => {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    isDarkMode.value = "dark"
+  }
   const savedTheme = localStorage.getItem("theme") || "light";
   isDarkMode.value = savedTheme === "dark";
   document.documentElement.setAttribute("data-theme", savedTheme);
