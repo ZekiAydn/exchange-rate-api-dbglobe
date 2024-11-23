@@ -92,8 +92,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useCurrencyStore } from '@/stores/useCurrencyStore';
-import {DatePicker, Select, Button, DataTable, Column, MultiSelect, ProgressSpinner, InputNumber} from 'primevue';
-import Chart from 'primevue/chart';
 import {chartOptions} from "@/utils/chartOptions.js";
 
 const store = useCurrencyStore();

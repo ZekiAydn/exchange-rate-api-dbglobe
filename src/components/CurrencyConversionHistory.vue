@@ -18,7 +18,6 @@
 
 <script setup>
 import { useCurrencyStore } from '@/stores/useCurrencyStore';
-import { DataTable, Column } from 'primevue';
 
 const store = useCurrencyStore();
 </script>

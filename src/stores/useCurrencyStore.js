@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-const API_KEY = import.meta.env.VITE_API_KEY_3;
+const API_KEY = import.meta.env.VITE_API_KEY_2;
 const BASE_URL = 'https://api.apilayer.com/exchangerates_data';
 
 export const useCurrencyStore = defineStore('currency', {

@@ -7,7 +7,6 @@
 <script setup>
 import { computed } from 'vue';
 import { useCurrencyStore } from '@/stores/useCurrencyStore';
-import {Toast} from "primevue";
 
 const store = useCurrencyStore();
 const message = computed(() => store.error);
